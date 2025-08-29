@@ -25,25 +25,15 @@ unix:!macx:QMAKE_CLEAN     += $$DEBIAN_CLEAN
 unix:!macx:QMAKE_DISTCLEAN += $$DEBIAN_CLEAN
 
 # Unit testing thru "make check"
-unittests.target = check
-QMAKE_EXTRA_TARGETS += unittests
-qmlui: {
-  unix:unittests.commands += ./unittest.sh "qmlui"
-  win32:unittests.commands += unittest.bat "qmlui"
-} else {
-  unix:unittests.commands += ./unittest.sh "ui"
-  win32:unittests.commands += unittest.bat "ui"
+win32 {
+  unittests.target = check
+  QMAKE_EXTRA_TARGETS += unittests
+  qmlui: {
+    unittests.commands += unittest.bat "qmlui"
+  } else {
+    unittests.commands += unittest.bat "ui"
+  }
 }
-
-# Unit test coverage measurement
-coverage.target = lcov
-QMAKE_EXTRA_TARGETS += coverage
-qmlui: {
-unix:coverage.commands += ./coverage.sh "qmlui"
-} else {
-unix:coverage.commands += ./coverage.sh "ui"
-}
-win32:coverage.commands = @echo Get a better OS.
 
 # Translations
 translations.target = translate
