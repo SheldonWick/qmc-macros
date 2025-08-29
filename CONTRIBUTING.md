@@ -16,7 +16,7 @@ Given the above, the guidelines you are invited to follow are:
 - if you change something in a very specific area, it doesn't mean it will not have reflections (and maybe cause regressions) on other areas. It's hard to have the whole picture of how QLC+ works, but if you have doubts, just ask in the [forum development section](http://www.qlcplus.org/forum/viewforum.php?f=12)
 - if you want to add new options, then ask yourself if it is really needed, cause newbie users might be confused about so many options and might not be encouraged to adopt QLC+
 - new options should also be documented in HTML form. If you don't do it, then remember someone else will have to, thus spending their time instead of yours
-- QLC+ uses Qt test unit classes, so before submitting a change, you should run `make check` and double check your changes didn't introduce regressions. If one or more tests don't pass, please fix your code before creating a pull request
+- QLC+ uses Qt test unit classes, so before submitting a change, you should run the test suite and double check your changes didn't introduce regressions. On Windows, you can run `unittest.bat` (or an equivalent PowerShell command) to execute the tests. If one or more tests don't pass, please fix your code before creating a pull request
 - please follow the coding style adopted all over the QLC+ code. Especially parenthesis and spaces
 - changes to the engine classes or the VCWidget class **must be carefully discussed first** !
 - please try to take responsibilities for the changes you make. Do not just throw lines of code in without careful tests and hope someone else will test it better than you or take responsibility for your code

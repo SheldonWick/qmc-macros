@@ -90,59 +90,23 @@ if(APPLE AND NOT qmlui)
 endif()
 
 # Unit testing thru "make check"
-if(qmlui)
-    if(WIN32)
-       add_custom_target(unittests
-            COMMAND unittest_cmake.bat "qmlui" ${CMAKE_CURRENT_BINARY_DIR}
-            WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-        )
-    else()
-       add_custom_target(unittests
-            COMMAND ./unittest_cmake.sh "qmlui" ${CMAKE_CURRENT_BINARY_DIR}
-            WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-        )
-    endif()
-else()
-    if(WIN32)
-       add_custom_target(unittests
-            COMMAND unittest_cmake.bat "ui" ${CMAKE_CURRENT_BINARY_DIR}
-            WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-        )
-    else()
-       add_custom_target(unittests
-            COMMAND ./unittest_cmake.sh "ui" ${CMAKE_CURRENT_BINARY_DIR}
-            WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-        )
-    endif()
-endif()
-
-add_custom_target(check
-    DEPENDS unittests
-)
-
-# Unit test coverage measurement
 if(WIN32)
-    add_custom_target(coverage
-        COMMAND @echo Get a better OS.
-        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-    )
-else()
     if(qmlui)
-       add_custom_target(coverage
-            COMMAND ./coverage_cmake.sh "qmlui"
+        add_custom_target(unittests
+            COMMAND unittest.bat "qmlui"
             WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
         )
     else()
-       add_custom_target(coverage
-            COMMAND ./coverage_cmake.sh "ui"
+        add_custom_target(unittests
+            COMMAND unittest.bat "ui"
             WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
         )
     endif()
-endif()
 
-add_custom_target(lcov
-    DEPENDS coverage
-)
+    add_custom_target(check
+        DEPENDS unittests
+    )
+endif()
 
 # Translations
 if (qmlui)
